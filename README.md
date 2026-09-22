@@ -6,6 +6,18 @@ deploys to Vercel's free tier.
 
 Built as a portfolio piece: the kind of thing you send cold.
 
+**Stack:** Vite · React 19 · TypeScript · GSAP + ScrollTrigger · Lenis · raw WebGL
+**Live demo:** not deployed yet (see [Deploying](#deploying))
+
+## Screenshots
+
+<!-- Drop images in docs/screenshots/ and uncomment:
+![Hero](docs/screenshots/hero.png)
+![Selected works](docs/screenshots/works.png)
+![Method](docs/screenshots/method.png)
+-->
+_Screenshots coming soon._
+
 ---
 
 ## Running it
@@ -23,6 +35,8 @@ build locally.
 
 Append `?nopreload` to any URL to skip the opening curtain — useful when
 working on sections further down the page.
+
+**Environment variables:** none. The site is fully static.
 
 ## Deploying
 
@@ -62,6 +76,21 @@ grain plate, and route changes covered by a column wipe.
   view, and stop drawing once the effect comes to rest.
 - **Self-hosted fonts** (Instrument Serif / Instrument Sans / IBM Plex Mono) —
   no third-party requests anywhere on the page.
+
+### Layout
+
+```
+src/
+  components/    page sections (Hero, Manifesto, WorkGallery, PlanSection, …),
+                 plus Cursor, Preloader (the curtain) and PageTransition
+  pages/         Home, Project detail, NotFound
+  lib/           Lenis + GSAP wiring (useSmoothScroll, motion)
+    webgl/       DistortImage — the hand-written WebGL effect
+  data/          project content and 20px image previews
+  styles/        base CSS and design tokens
+public/img/      graded WebP photographs at two widths
+vercel.json      SPA rewrite and cache headers
+```
 
 ### Two things worth knowing if you edit this
 
