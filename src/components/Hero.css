@@ -1,0 +1,153 @@
+.hero {
+  position: relative;
+  height: 100svh;
+  min-height: 34rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 var(--margin) clamp(1.25rem, 3.5vh, 2.25rem);
+}
+
+.hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  will-change: transform;
+}
+
+.hero__plate {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+
+.hero__plate .img-wrap {
+  position: absolute;
+  inset: 0;
+}
+
+/* The GL plate replaces the still once its texture has uploaded. */
+.hero__gl {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.6s var(--e-soft);
+}
+
+.hero__gl[data-ready="true"] {
+  opacity: 1;
+}
+
+.hero__copy {
+  position: relative;
+  z-index: 1;
+  margin-bottom: clamp(2rem, 6vh, 4rem);
+}
+
+.hero__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--ink);
+  margin-bottom: clamp(1rem, 2.5vh, 1.75rem);
+}
+
+.hero__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--clay);
+  flex: none;
+}
+
+.hero__title {
+  font-size: clamp(2.75rem, 8.5vw, 8.5rem);
+  line-height: 0.94;
+  letter-spacing: -0.025em;
+  margin-bottom: clamp(1rem, 2.4vh, 1.75rem);
+}
+
+/* The two lines are an authored break, not a wrap — hold them. */
+.hero__line {
+  display: block;
+  white-space: nowrap;
+  will-change: transform;
+}
+
+.hero__sub {
+  color: var(--fg-2);
+  max-width: 40ch;
+}
+
+.hero__foot {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-top: clamp(0.75rem, 2vh, 1.25rem);
+  border-top: 1px solid var(--rule-strong);
+  color: var(--ink);
+}
+
+.hero__foot .label {
+  color: var(--fg-2);
+}
+
+.hero__scroll {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.55rem;
+}
+
+/* A hairline that fills downward, on a loop. */
+.hero__tick {
+  width: 1px;
+  height: clamp(2rem, 5vh, 3.25rem);
+  background: var(--rule-strong);
+  position: relative;
+  overflow: hidden;
+  transform-origin: top center;
+}
+
+.hero__tick::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--clay);
+  transform-origin: top center;
+  animation: tick-fill 2.2s var(--e-inout) infinite;
+}
+
+@keyframes tick-fill {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top center;
+  }
+  45% {
+    transform: scaleY(1);
+    transform-origin: top center;
+  }
+  55% {
+    transform: scaleY(1);
+    transform-origin: bottom center;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom center;
+  }
+}
+
+@media (max-width: 860px) {
+  .hero__copy {
+    max-width: none;
+  }
+  .hero__foot-mid {
+    display: none;
+  }
+}

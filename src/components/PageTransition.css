@@ -1,0 +1,30 @@
+.veil {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-veil);
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  pointer-events: none;
+}
+
+.veil__col {
+  background: var(--ink);
+  transform: scaleY(0);
+  transform-origin: bottom center;
+  /* Overlap by a hair so sub-pixel seams never show between columns. */
+  margin-right: -1px;
+  will-change: transform;
+}
+
+.veil__label {
+  position: absolute;
+  inset-inline: 0;
+  bottom: clamp(2rem, 8vh, 5rem);
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 6vw, 4.5rem);
+  line-height: 1;
+  color: var(--paper);
+  opacity: 0;
+  visibility: hidden;
+}

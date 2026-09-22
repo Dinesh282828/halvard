@@ -1,0 +1,75 @@
+/* ------------------------------------------------------------------
+   Halvard — design tokens
+   A restrained editorial system: warm stone paper, warm black ink,
+   one accent (clay) used sparingly for state and drawing.
+   ------------------------------------------------------------------ */
+
+:root {
+  /* --- surface ---------------------------------------------------- */
+  --paper: #edeae3;
+  --paper-sunk: #e3dfd6;
+  --ink: #14120f;
+  --ink-lift: #1e1b17;
+
+  /* --- foreground ------------------------------------------------- */
+  --fg: var(--ink);
+  --fg-2: #55503f;
+  --fg-3: #8d8677;
+  --bg: var(--paper);
+
+  /* --- accent (use sparingly: active state, drawing, focus) ------- */
+  --clay: #a6432a;
+  --clay-soft: #c26a4f;
+
+  /* --- lines ------------------------------------------------------ */
+  --rule: rgb(20 18 15 / 14%);
+  --rule-strong: rgb(20 18 15 / 28%);
+
+  /* --- type ------------------------------------------------------- */
+  --font-display: "Instrument Serif", "Times New Roman", serif;
+  --font-sans: "Instrument Sans Variable", "Helvetica Neue", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", "SF Mono", ui-monospace, monospace;
+
+  --fs-display: clamp(3.25rem, 12vw, 11.5rem);
+  --fs-xl: clamp(2.5rem, 7vw, 6rem);
+  --fs-lg: clamp(1.75rem, 3.6vw, 3.25rem);
+  --fs-md: clamp(1.25rem, 2vw, 1.75rem);
+  --fs-body: clamp(1rem, 0.95rem + 0.3vw, 1.1875rem);
+  --fs-sm: 0.8125rem;
+  --fs-label: 0.6875rem;
+
+  /* --- rhythm ----------------------------------------------------- */
+  --gutter: clamp(1rem, 1.6vw, 2rem);
+  --margin: clamp(1.25rem, 4.5vw, 4.5rem);
+  --section-y: clamp(6rem, 14vh, 12rem);
+
+  /* --- motion ----------------------------------------------------- */
+  --e-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --e-inout: cubic-bezier(0.76, 0, 0.24, 1);
+  --e-soft: cubic-bezier(0.33, 1, 0.68, 1);
+  --d-fast: 0.32s;
+  --d-mid: 0.6s;
+  --d-slow: 1.1s;
+
+  /* --- depth ------------------------------------------------------ */
+  --z-grain: 60;
+  --z-cursor: 90;
+  --z-nav: 70;
+  --z-veil: 80;
+  --z-loader: 100;
+}
+
+/* Inverted surface — used for the drawing section and the footer.
+   Sections opt in with `data-scheme="ink"`. */
+[data-scheme="ink"] {
+  --bg: var(--ink);
+  --fg: var(--paper);
+  --fg-2: #a49c8d;
+  --fg-3: #6f695d;
+  --rule: rgb(237 234 227 / 16%);
+  --rule-strong: rgb(237 234 227 / 34%);
+  --clay: #cf6a49;
+
+  background: var(--bg);
+  color: var(--fg);
+}

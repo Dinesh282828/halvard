@@ -1,0 +1,239 @@
+.work {
+  position: relative;
+  overflow: hidden;
+}
+
+/* The pinned element. Kept as an inner wrapper so ScrollTrigger's spacer is
+   inserted inside the section rather than around it — see WorkGallery.tsx. */
+.work__pin {
+  padding-block: clamp(1.5rem, 4vh, 3rem);
+  background: var(--paper);
+}
+
+/* While pinned the block must fit the viewport exactly — anything taller
+   puts the progress rail below the fold for the whole run. */
+@media (min-width: 769px) {
+  .work__pin {
+    height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+.work__head {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0 var(--margin) clamp(1.5rem, 4vh, 2.5rem);
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: clamp(2rem, 6vh, 4rem);
+}
+
+/* ------------------------------------------------------------------
+   The run
+   ------------------------------------------------------------------ */
+
+.work__track {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.5rem, 4vw, 4.5rem);
+  padding-inline: var(--margin);
+  width: max-content;
+  will-change: transform;
+}
+
+/* Width is capped against viewport height as well as width, so a tall card
+   plus its caption always clears a short laptop screen. */
+.card {
+  display: block;
+  flex: none;
+  width: clamp(14rem, min(28vw, 34vh), 24rem);
+  color: inherit;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Alternating proportions and offsets keep the run from reading as a
+   uniform carousel. */
+.card[data-span="tall"] .card__frame {
+  aspect-ratio: 3 / 4;
+}
+
+.card[data-span="wide"] {
+  width: clamp(16rem, min(34vw, 60vh), 30rem);
+  transform: translateY(clamp(1rem, 3vh, 2.5rem));
+}
+
+.card[data-span="wide"] .card__frame {
+  aspect-ratio: 4 / 3;
+}
+
+.card__frame {
+  position: relative;
+  overflow: hidden;
+  background: var(--paper-sunk);
+}
+
+.card__frame .img-wrap {
+  position: absolute;
+  inset: 0;
+  /* Overscaled so the parallax drift never exposes an edge. */
+  width: 118%;
+  left: -9%;
+  will-change: transform;
+}
+
+.card__gl {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.45s var(--e-soft);
+  pointer-events: none;
+}
+
+.card__gl[data-ready="true"] {
+  opacity: 1;
+}
+
+.card__head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin-bottom: 0.85rem;
+}
+
+.card__index {
+  font-size: var(--fs-label);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--clay);
+  flex: none;
+}
+
+/* ------------------------------------------------------------------
+   Caption
+   ------------------------------------------------------------------ */
+
+.card__meta {
+  padding-top: clamp(0.9rem, 2vh, 1.35rem);
+}
+
+.card__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.4vw, 2.25rem);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.015em;
+  position: relative;
+  display: inline-block;
+}
+
+/* Title underline draws on card hover. */
+.card__title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.12em;
+  width: 100%;
+  height: 1px;
+  background: var(--clay);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.55s var(--e-out);
+}
+
+.card:hover .card__title::after {
+  transform: scaleX(1);
+}
+
+.card__specs {
+  display: flex;
+  gap: clamp(1rem, 2vw, 2rem);
+  border-top: 1px solid var(--rule);
+  padding-top: 0.7rem;
+}
+
+.card__specs dt {
+  margin-bottom: 0.3rem;
+}
+
+.card__specs dd {
+  font-size: var(--fs-sm);
+  color: var(--fg-2);
+  white-space: nowrap;
+}
+
+.work__end {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 40vw;
+  min-width: 12rem;
+}
+
+/* ------------------------------------------------------------------
+   Progress rail
+   ------------------------------------------------------------------ */
+
+.work__rail {
+  position: relative;
+  margin: clamp(1.5rem, 4vh, 3rem) var(--margin) 0;
+  height: 1px;
+  background: var(--rule);
+}
+
+.work__ticks {
+  position: absolute;
+  inset: 0;
+  display: flex;
+}
+
+.work__tick {
+  flex: 1;
+  border-left: 1px solid var(--rule);
+  height: 7px;
+  margin-top: -3px;
+  transition: border-color 0.4s var(--e-out);
+}
+
+.work__tick.is-live {
+  border-color: var(--clay);
+}
+
+.work__gauge {
+  position: absolute;
+  inset: 0;
+  background: var(--ink);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+/* ------------------------------------------------------------------
+   Stacked below the pin breakpoint — and whenever motion is reduced,
+   since without the pin the track would overflow with nothing to
+   scroll it sideways.
+   ------------------------------------------------------------------ */
+
+@media (max-width: 768px), (prefers-reduced-motion: reduce) {
+  .work__track {
+    flex-direction: column;
+    align-items: stretch;
+    width: auto;
+    gap: clamp(2.5rem, 8vh, 4rem);
+  }
+
+  .card,
+  .card[data-span="wide"] {
+    width: 100%;
+    transform: none;
+  }
+
+  .work__end,
+  .work__rail {
+    display: none;
+  }
+}

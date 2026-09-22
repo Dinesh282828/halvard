@@ -1,0 +1,272 @@
+/* ------------------------------------------------------------------
+   Reset + base typography
+   ------------------------------------------------------------------ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: auto;
+}
+
+body {
+  min-height: 100svh;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+img,
+svg,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+::selection {
+  background: var(--clay);
+  color: var(--paper);
+}
+
+:focus-visible {
+  outline: 2px solid var(--clay);
+  outline-offset: 3px;
+}
+
+/* ------------------------------------------------------------------
+   Type roles
+   ------------------------------------------------------------------ */
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--fs-display);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+}
+
+.heading {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--fs-xl);
+  line-height: 0.95;
+  letter-spacing: -0.015em;
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-3);
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+/* Numerals that must not reflow while counting */
+.tnum {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* ------------------------------------------------------------------
+   Layout helpers
+   ------------------------------------------------------------------ */
+
+.shell {
+  padding-inline: var(--margin);
+}
+
+.rule {
+  height: 1px;
+  border: 0;
+  background: var(--rule);
+}
+
+/* A line of text that animates up from a clipped box. */
+.line-mask {
+  display: block;
+  overflow: hidden;
+  /* room for descenders so `g`/`y` are not shaved off */
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+
+/* ------------------------------------------------------------------
+   Film grain — a fixed, animated noise plate.
+   Gives photography and flat colour a shared surface texture.
+   ------------------------------------------------------------------ */
+
+.grain {
+  position: fixed;
+  inset: -60%;
+  z-index: var(--z-grain);
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  will-change: transform;
+  animation: grain-shift 900ms steps(1) infinite;
+}
+
+@keyframes grain-shift {
+  0% {
+    transform: translate(0, 0);
+  }
+  20% {
+    transform: translate(-4%, 3%);
+  }
+  40% {
+    transform: translate(3%, -5%);
+  }
+  60% {
+    transform: translate(-6%, -2%);
+  }
+  80% {
+    transform: translate(5%, 4%);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+/* ------------------------------------------------------------------
+   Section heads — a label on the left, a note on the right. On narrow
+   screens they stack rather than wrapping mid-phrase.
+   ------------------------------------------------------------------ */
+
+@media (max-width: 560px) {
+  .work__head,
+  .index__head,
+  .plan__caption,
+  .foot__base {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .work__head .label,
+  .index__head .label,
+  .plan__caption .label,
+  .foot__base .label {
+    white-space: nowrap;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Error fallback
+   ------------------------------------------------------------------ */
+
+.crash {
+  min-height: 100svh;
+  display: grid;
+  place-content: center;
+  justify-items: start;
+  gap: 1.25rem;
+  padding: var(--margin);
+  max-width: 40rem;
+  margin-inline: auto;
+}
+
+.crash__link {
+  color: var(--clay);
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+
+.crash__btn {
+  margin-top: 1rem;
+  text-decoration: underline;
+  text-underline-offset: 0.4em;
+}
+
+/* ------------------------------------------------------------------
+   Lenis smooth scroll
+   ------------------------------------------------------------------ */
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* ------------------------------------------------------------------
+   Reduced motion — strip transforms, keep the site fully usable.
+   ------------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .grain {
+    animation: none;
+  }
+}

@@ -1,0 +1,59 @@
+.manifesto {
+  display: grid;
+  grid-template-columns: minmax(6rem, 1fr) minmax(0, 4fr);
+  gap: clamp(1.5rem, 5vw, 5rem);
+  padding: var(--section-y) var(--margin);
+  align-items: start;
+}
+
+.manifesto__aside {
+  position: sticky;
+  top: 30vh;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.manifesto__rail {
+  width: 1px;
+  height: clamp(4rem, 12vh, 8rem);
+  background: var(--rule);
+  position: relative;
+}
+
+.manifesto__gauge {
+  position: absolute;
+  inset: 0;
+  background: var(--clay);
+  transform: scaleY(0);
+  transform-origin: top center;
+}
+
+.manifesto__text {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 4.1vw, 4rem);
+  line-height: 1.12;
+  letter-spacing: -0.018em;
+  max-width: 20ch;
+  text-wrap: balance;
+}
+
+@media (max-width: 760px) {
+  .manifesto {
+    grid-template-columns: 1fr;
+  }
+  .manifesto__aside {
+    position: static;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+  }
+  /* Rail stays vertical so the gauge keeps animating on the same axis the
+     timeline drives — just shorter, sitting beside the label. */
+  .manifesto__rail {
+    height: 2.5rem;
+  }
+  .manifesto__text {
+    max-width: none;
+  }
+}

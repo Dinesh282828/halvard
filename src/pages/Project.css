@@ -1,0 +1,237 @@
+.proj {
+  /* Clears the fixed bar so it always sits on paper, never on a photograph
+     whose tone we cannot predict. */
+  padding-top: clamp(4rem, 9vh, 5.5rem);
+  padding-bottom: clamp(3rem, 8vh, 6rem);
+}
+
+/* ------------------------------------------------------------------
+   Cover — full bleed, with the title set beneath it on paper rather
+   than laid over an image of unknown tone.
+   ------------------------------------------------------------------ */
+
+.proj__hero {
+  position: relative;
+  height: 74svh;
+  min-height: 22rem;
+  overflow: hidden;
+}
+
+.proj__cover {
+  position: absolute;
+  inset: 0;
+}
+
+.proj__cover .img-wrap {
+  position: absolute;
+  inset: -8% 0;
+  height: 116%;
+  will-change: transform;
+}
+
+.proj__title-block {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.75rem, 2vh, 1.25rem);
+  padding: clamp(1.75rem, 5vh, 3rem) var(--margin) clamp(1.5rem, 4vh, 2.5rem);
+}
+
+.proj__title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 11vw, 10rem);
+  font-weight: 400;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+}
+
+.proj__line {
+  display: block;
+  white-space: nowrap;
+  will-change: transform;
+}
+
+.proj__where {
+  color: inherit;
+}
+
+/* ------------------------------------------------------------------
+   Specification band
+   ------------------------------------------------------------------ */
+
+.proj__spec {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1rem, 3vw, 2rem);
+  padding: clamp(2rem, 6vh, 3.5rem) var(--margin);
+  border-bottom: 1px solid var(--rule);
+}
+
+.proj__spec-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.proj__spec-val {
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 2vw, 1.75rem);
+  line-height: 1.1;
+}
+
+/* ------------------------------------------------------------------
+   Body
+   ------------------------------------------------------------------ */
+
+.proj__body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 46rem;
+  margin-inline: auto;
+  padding: clamp(3rem, 10vh, 7rem) var(--margin);
+}
+
+.proj__para {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.3vw, 1.9rem);
+  line-height: 1.32;
+  letter-spacing: -0.01em;
+}
+
+.proj__para:first-child {
+  text-indent: 0;
+}
+
+/* ------------------------------------------------------------------
+   Plates
+   ------------------------------------------------------------------ */
+
+.proj__plates {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.5rem, 4vw, 3.5rem) clamp(1rem, 2.5vw, 2rem);
+  padding-inline: var(--margin);
+}
+
+.proj__plate {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  will-change: transform;
+}
+
+.proj__plate[data-span="full"] {
+  grid-column: 1 / -1;
+}
+
+.proj__plate-img {
+  overflow: hidden;
+  background: var(--paper-sunk);
+  aspect-ratio: 4 / 3;
+}
+
+.proj__plate[data-span="full"] .proj__plate-img {
+  aspect-ratio: 16 / 9;
+}
+
+.proj__plate figcaption {
+  display: flex;
+  gap: 0.9rem;
+  color: var(--fg-3);
+}
+
+.proj__fig {
+  color: var(--clay);
+  flex: none;
+}
+
+/* ------------------------------------------------------------------
+   Credits
+   ------------------------------------------------------------------ */
+
+.proj__credits {
+  display: grid;
+  grid-template-columns: minmax(6rem, 1fr) minmax(0, 3fr);
+  gap: clamp(1.5rem, 4vw, 4rem);
+  padding: clamp(3rem, 9vh, 6rem) var(--margin);
+  border-top: 1px solid var(--rule);
+  margin-top: clamp(3rem, 9vh, 6rem);
+}
+
+.proj__credits-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+}
+
+.proj__credits-list dt {
+  margin-bottom: 0.5rem;
+}
+
+.proj__credits-list dd {
+  color: var(--fg-2);
+}
+
+/* ------------------------------------------------------------------
+   Next
+   ------------------------------------------------------------------ */
+
+.proj__next {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.25rem, 4vw, 3rem);
+  padding: clamp(2rem, 6vh, 4rem) var(--margin);
+  border-top: 1px solid var(--rule);
+  cursor: pointer;
+}
+
+.proj__next-media {
+  width: clamp(6rem, 14vw, 12rem);
+  aspect-ratio: 4 / 5;
+  flex: none;
+  overflow: hidden;
+  background: var(--paper-sunk);
+}
+
+.proj__next-media .img-wrap {
+  transition: transform 0.8s var(--e-out);
+}
+
+.proj__next:hover .img-wrap {
+  transform: scale(1.06);
+}
+
+.proj__next-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.proj__next-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 6vw, 5rem);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  transition: transform 0.6s var(--e-out);
+}
+
+.proj__next:hover .proj__next-title {
+  transform: translateX(clamp(0.5rem, 1.5vw, 1.5rem));
+}
+
+@media (max-width: 760px) {
+  .proj__spec {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 1.75rem;
+  }
+  .proj__plates {
+    grid-template-columns: 1fr;
+  }
+  .proj__plate[data-span="half"] .proj__plate-img {
+    aspect-ratio: 4 / 3;
+  }
+  .proj__credits {
+    grid-template-columns: 1fr;
+  }
+}

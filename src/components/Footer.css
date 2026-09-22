@@ -1,0 +1,136 @@
+.foot {
+  padding: clamp(4rem, 12vh, 9rem) var(--margin) clamp(1.5rem, 4vh, 2.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(3rem, 10vh, 7rem);
+  min-height: 88svh;
+  justify-content: space-between;
+}
+
+.foot__call {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 3vh, 2rem);
+}
+
+.foot__head {
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 8vw, 7.5rem);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: -0.025em;
+}
+
+.foot__line {
+  display: block;
+  white-space: nowrap;
+  will-change: transform;
+}
+
+/* ------------------------------------------------------------------
+   Columns
+   ------------------------------------------------------------------ */
+
+.foot__cols {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.5rem, 4vw, 3rem);
+  border-top: 1px solid var(--rule);
+  padding-top: clamp(1.25rem, 3vh, 2rem);
+}
+
+.foot__col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.7rem;
+}
+
+.foot__col .label {
+  margin-bottom: 0.5rem;
+}
+
+.foot__addr {
+  font-size: var(--fs-sm);
+  line-height: 1.6;
+  color: var(--fg-2);
+}
+
+/* ------------------------------------------------------------------
+   Rolling links
+   ------------------------------------------------------------------ */
+
+.roll {
+  display: inline-block;
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  line-height: 1.35;
+}
+
+.roll__inner {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Each character is a window one line tall. Both copies travel up together:
+   the first leaves through the top as the second arrives from below. */
+.roll__char {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  line-height: 1.35;
+}
+
+.roll__a,
+.roll__b {
+  display: block;
+  transition: transform 0.42s var(--e-out);
+  transition-delay: var(--d, 0ms);
+  will-change: transform;
+}
+
+.roll__b {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  color: var(--clay);
+}
+
+.roll:hover .roll__a,
+.roll:hover .roll__b,
+.roll:focus-visible .roll__a,
+.roll:focus-visible .roll__b {
+  transform: translateY(-100%);
+}
+
+/* ------------------------------------------------------------------
+   Base row
+   ------------------------------------------------------------------ */
+
+.foot__base {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  border-top: 1px solid var(--rule);
+  padding-top: clamp(1rem, 2.4vh, 1.5rem);
+}
+
+.foot__clock {
+  color: var(--clay);
+  margin-left: 0.4rem;
+}
+
+@media (max-width: 760px) {
+  .foot__cols {
+    grid-template-columns: 1fr 1fr;
+    row-gap: 2.5rem;
+  }
+  .foot__cvr {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .foot__cols {
+    grid-template-columns: 1fr;
+  }
+}

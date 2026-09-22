@@ -1,0 +1,106 @@
+.index {
+  position: relative;
+  padding: var(--section-y) var(--margin);
+}
+
+.index__head {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: clamp(1.5rem, 4vh, 2.5rem);
+  border-bottom: 1px solid var(--rule);
+}
+
+.index__rows {
+  position: relative;
+  z-index: 1;
+}
+
+.index__row {
+  display: grid;
+  grid-template-columns: 4rem minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: clamp(1rem, 3vw, 2.5rem);
+  padding: clamp(1.1rem, 3vh, 2rem) 0;
+  border-bottom: 1px solid var(--rule);
+  cursor: pointer;
+  will-change: transform;
+}
+
+.index__n {
+  color: var(--fg-3);
+  transition: color 0.4s var(--e-out);
+}
+
+.index__name {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 4.4vw, 3.6rem);
+  line-height: 1;
+  letter-spacing: -0.018em;
+  transition: transform 0.55s var(--e-out);
+}
+
+.index__count {
+  color: var(--fg-3);
+  text-align: right;
+  transition: color 0.4s var(--e-out);
+}
+
+.index__row:hover .index__name {
+  transform: translateX(clamp(0.75rem, 2vw, 2rem));
+}
+
+.index__row:hover .index__n,
+.index__row:hover .index__count {
+  color: var(--clay);
+}
+
+/* ------------------------------------------------------------------
+   Cursor-carried plate
+   ------------------------------------------------------------------ */
+
+.index__follower {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: clamp(13rem, 21vw, 20rem);
+  aspect-ratio: 4 / 5;
+  margin: -12% 0 0 -50%;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.86);
+  will-change: transform;
+  z-index: 2;
+}
+
+.index__plate {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: scale(1.06);
+  transition:
+    opacity 0.45s var(--e-out),
+    transform 0.7s var(--e-out);
+}
+
+.index__plate[data-live="true"] {
+  opacity: 1;
+  transform: scale(1);
+}
+
+@media (hover: none), (pointer: coarse) {
+  .index__follower {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .index__row {
+    grid-template-columns: 2.5rem minmax(0, 1fr);
+  }
+  .index__count {
+    grid-column: 2;
+    text-align: left;
+  }
+}

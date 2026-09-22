@@ -1,0 +1,174 @@
+.plan {
+  position: relative;
+  overflow: hidden;
+}
+
+/* The pinned element. Inner wrapper so ScrollTrigger's spacer lands inside
+   the section — see WorkGallery.tsx for why that matters. */
+.plan__pin {
+  height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(1.5rem, 4vh, 3rem);
+  padding: clamp(4rem, 10vh, 7rem) var(--margin) clamp(2rem, 5vh, 3.5rem);
+  background: var(--ink);
+}
+
+.plan__intro {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  max-width: 46rem;
+}
+
+.plan__heading {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2.9vw, 2.6rem);
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+}
+
+/* ------------------------------------------------------------------
+   Stage — drawing and photograph share one 1000 × 640 box, so the
+   reveal geometry in the timeline lines up with the SVG coordinates.
+   ------------------------------------------------------------------ */
+
+.plan__stage {
+  position: relative;
+  width: 100%;
+  max-width: min(100%, 78rem);
+  aspect-ratio: 1000 / 700;
+  max-height: 56svh;
+  margin-inline: auto;
+}
+
+.plan__photo {
+  position: absolute;
+  inset: 0;
+  /* Opens from the spine: 72→928 across, 292→348 down, on a 1000×700 box. */
+  clip-path: inset(41.71% 7.2% 50.29% 7.2%);
+  opacity: 0;
+  visibility: hidden;
+  will-change: clip-path;
+}
+
+.plan__photo .img-wrap {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+
+.plan__drawing {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* Strokes are normalised with pathLength="1", so every run draws at the
+   same rate no matter how long the geometry actually is. */
+.plan__drawing path {
+  stroke: var(--paper);
+  stroke-width: 1.5;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.plan-envelope path {
+  stroke-width: 2;
+}
+
+.plan-spine path {
+  stroke: var(--clay);
+  stroke-width: 2;
+}
+
+.plan-detail path {
+  stroke: rgb(237 234 227 / 62%);
+}
+
+.plan-dims path {
+  stroke: rgb(237 234 227 / 45%);
+  stroke-width: 1;
+}
+
+.plan-north {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.plan-north circle {
+  stroke: rgb(237 234 227 / 45%);
+  stroke-width: 1;
+  fill: none;
+}
+
+.plan-north path {
+  stroke: rgb(237 234 227 / 70%);
+  stroke-dasharray: none;
+  stroke-dashoffset: 0;
+}
+
+.plan__drawing text {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-anchor: middle;
+  fill: rgb(237 234 227 / 62%);
+}
+
+.plan-dim-text {
+  font-size: 12px;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.plan-label {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.plan-label--key {
+  fill: var(--clay);
+  font-size: 14px;
+}
+
+.plan-leader {
+  stroke: var(--clay);
+  stroke-width: 1;
+  stroke-dasharray: none;
+  stroke-dashoffset: 0;
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* ------------------------------------------------------------------
+   Caption
+   ------------------------------------------------------------------ */
+
+.plan__caption {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  border-top: 1px solid var(--rule);
+  padding-top: 0.9rem;
+  opacity: 0;
+  visibility: hidden;
+}
+
+@media (max-width: 760px) {
+  .plan__stage {
+    max-height: none;
+  }
+  .plan__drawing text {
+    font-size: 17px;
+  }
+  .plan-dim-text {
+    font-size: 15px;
+  }
+}

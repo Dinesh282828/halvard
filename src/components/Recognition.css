@@ -1,0 +1,45 @@
+.recog {
+  padding: clamp(4rem, 11vh, 8rem) 0;
+  overflow: hidden;
+}
+
+.recog__head {
+  padding: 0 var(--margin) clamp(1.75rem, 5vh, 3rem);
+}
+
+.belt {
+  overflow: hidden;
+  padding-block: clamp(0.5rem, 1.4vh, 1rem);
+}
+
+.belt__rail {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+
+.belt__set {
+  display: flex;
+  flex: none;
+}
+
+.belt__item {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  padding-right: clamp(1.5rem, 4vw, 3.5rem);
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3.4vw, 3rem);
+  line-height: 1.24;
+  white-space: nowrap;
+  color: var(--fg);
+}
+
+/* A hairline diamond between entries, rather than a bullet. */
+.belt__sep {
+  width: 7px;
+  height: 7px;
+  flex: none;
+  border: 1px solid var(--clay);
+  transform: rotate(45deg);
+}
